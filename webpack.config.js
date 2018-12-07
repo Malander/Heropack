@@ -86,7 +86,7 @@ const config = {
     }),
     new BrowserSyncPlugin({
       port: 3000,
-      proxy: 'http://cortina2021.test'
+      server: { baseDir: ['./'] }
     }),
 
 	]
