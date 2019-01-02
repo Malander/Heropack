@@ -1,6 +1,13 @@
 const path = require('path');
+const glob = require('glob-all');
+const webpack = require('webpack');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+const PurgecssPlugin = require('purgecss-webpack-plugin');
+
+const PATHS = {
+  src: path.join(__dirname, '')
+}
 
 
 const config = {
@@ -15,6 +22,7 @@ const config = {
   },
 
   devtool: 'source-map',
+  mode: 'none',
 
   module: {
   	rules: [
@@ -27,14 +35,6 @@ const config = {
 				    presets: ['env']
 				  }
 				}
-      },
-      {
-        test: /\.(png|jpg)$/,
-        loader: 'url-loader',
-        options: {
-          name: '[name].[ext]',
-          outputPath: 'img'
-        }
       },
   		{
         test: /\.(scss)$/,
@@ -70,9 +70,8 @@ const config = {
           {
             loader: 'file-loader',
             options: {
-              name: '[name].[ext]',
-              outputPath: '../webfonts/',
-              publicPath: '../webfonts/'
+              name: 'webfonts/[name].[ext]',
+              
             }
           }
         ]
@@ -84,9 +83,18 @@ const config = {
 	  new MiniCssExtractPlugin({
       filename: '../css/[name].css'
     }),
+    
     new BrowserSyncPlugin({
       port: 3000,
-      server: { baseDir: ['./'] }
+      host: 'localhost',
+      proxy: 'http://netinsurance.test',
+      // server: { baseDir: ['./'] }
+    }),
+
+    new PurgecssPlugin({
+      // paths: glob.sync(`${PATHS.src}/**/*`, {nodir: true})
+      paths: glob.sync(["./js/*", "./**/*.php"], {nodir: true}),
+      only: ['vendor']
     }),
 
 	]

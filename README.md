@@ -2,10 +2,10 @@ Hero Pack
 ===
 
 ## To run this theme on your local machine
-  npm install
+	npm install
 
 or if you prefer
-  yarn install
+	yarn install
 
 then run
   npm run watch
@@ -13,4 +13,4 @@ then run
 to instantly open up a dev server with BrowserSync and start coding.
 
 When you are ready for production run:
-  webpack -p
+	webpack -p
