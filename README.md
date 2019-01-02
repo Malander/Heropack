@@ -1,4 +1,4 @@
-#Hero Pack
+# Hero Pack
 ## Front-end environment using Webpack
 
 ### To run this theme on your local machine
